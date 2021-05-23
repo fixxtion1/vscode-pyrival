@@ -25,3 +25,7 @@
 ## Known Issues
 
 No known issues so far.
+
+## Credits
+
+- [@PyRival](https://github.com/cheran-senthil/PyRival)
