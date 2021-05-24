@@ -26,9 +26,9 @@
 
 | **Command**    | **Help Text **                                            |
 | -------------- | --------------------------------------------------------- |
-| comb.generalc  | Creates General Purpose Numbers (Combinatorics) Template  |
-| comb.lucasth   | Creates BLucas's Theorem Template                         |
-| comb.partfn    | Creates Partition Function Template                       |
+| comb.general  | Creates General Purpose Numbers (Combinatorics) Template  |
+| comb.lucas   | Creates Lucas's Theorem Template                         |
+| comb.part    | Creates Partition Function Template                       |
 
 
 ### Graphs Commands
@@ -49,6 +49,29 @@
 | graph.prim     | Creates Prim's Algorithm Template                           |
 | graph.tarjan   | Creates Tarjan's Algorithm Template                         |
 | graph.sorttop  | Creates Topological Sorting Template                        |
+
+
+
+### Graphs Commands
+
+| **Command**    | **Help Text **                                                |
+| -------------- | ------------------------------------------------------------- |
+| alg.crt        | Creates Chinese Remainder Theorem (Multivariable) Template    |
+| alg.dlog       | Creates Discrete Logarithm Template                           |
+| alg.lcmngcd    | Creates LCM and GCD Template                                  |
+| alg.factor     | Creates Integer Factorization Template                        |
+| alg.fft        | Creates Fast Fourier Transform Template                       |
+| alg.fst        | Creates Fast Subset Transform Template                        |
+| alg.ntt        | Creates Number Theoretic Transform Template                   |
+| alg.isprime    | Creates Deterministic Miller-Rabin Primality Test Template    |
+| alg.modsqrt    | Creates Tonelli–Shanks Algorithm Template                     |
+| alg.midinv     | Creates Generalized Modular Inverse Template                  |
+| alg.phi        | Creates Euler's Phi Function Template                         |
+| alg.proot      | Creates Primitive Root Template                               |
+| alg.sieve      | Creates Sieve of Eratosthenes Template                        |
+
+
+
 ## Known Issues
 
 No known issues so far.
