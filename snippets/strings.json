@@ -23,5 +23,10 @@
 		"prefix": "str.zfun",
 		"body": "\ndef z_function(S):\n    \"\"\"\n    Z Algorithm in O(n)\n    :param S: text string to process\n    :return: the Z array, where Z[i] = length of the longest common prefix of S[i:] and S\n    \"\"\"\n\n    n = len(S)\n    Z = [0] * n\n    l = r = 0\n\n    for i in range(1, n):\n        z = Z[i - l]\n        if i + z >= r:\n            z = max(r - i, 0)\n            while i + z < n and S[z] == S[i + z]:\n                z += 1\n\n            l, r = i, i + z\n\n        Z[i] = z\n\n    Z[0] = n\n    return Z\n\n\n",
 		"description": "Z Algorithm Template"
+	},
+	"	": {
+		"prefix": "str.lcsub",
+		"body": "from difflib import SequenceMatcher\n\nLCSubstr = lambda a, b: SequenceMatcher(None, a, b).find_longest_match(0, len(a), 0, len(b))\n\n\n",
+		"description": "Longest Common Substring Template"
 	}
 }
