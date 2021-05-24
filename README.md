@@ -6,7 +6,7 @@ Ever been trying to start with a competitive programming template?
 
 This extension will solve the issue for you and your up and running with a full template.
 
-![Gif](https://github.com/fixxtion/vscode-pyrival/code.gif)
+![Gif](code.gif)
 
 ## Shortcuts / Commands
 
