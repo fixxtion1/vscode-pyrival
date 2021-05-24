@@ -1,7 +1,7 @@
 {
 	"Convex Hull Template": {
 		"prefix": "geo.convex",
-		"body": "def remove_middle(a, b, c):\n    cross = (a[0] - b[0]) * (c[1] - b[1]) - (a[1] - b[1]) * (c[0] - b[0])\n    dot = (a[0] - b[0]) * (c[0] - b[0]) + (a[1] - b[1]) * (c[1] - b[1])\n    return cross < 0 or cross == 0 and dot <= 0\n\n\ndef convex_hull(points):\n    spoints = sorted(points)\n    hull = []\n    for p in spoints + spoints[::-1]:\n        while len(hull) >= 2 and remove_middle(hull[-2], hull[-1], p):\n            hull.pop()\n        hull.append(p)\n    hull.pop()\n    return hull\n",
+		"body": "def remove_middle(a, b, c):\n    cross = (a[0] - b[0]) * (c[1] - b[1]) - (a[1] - b[1]) * (c[0] - b[0])\n    dot = (a[0] - b[0]) * (c[0] - b[0]) + (a[1] - b[1]) * (c[1] - b[1])\n    return cross < 0 or cross == 0 and dot <= 0\n\n\ndef convex_hull(points):\n    spoints = sorted(points)\n    hull = []\n    for p in spoints + spoints[::-1]:\n        while len(hull) >= 2 and remove_middle(hull[-2], hull[-1], p):\n            hull.pop()\n        hull.append(p)\n    hull.pop()\n    return hull\n\n\n",
 		"description": "Convex Hull Template"
 	},
 	"Lines Function Template": {
@@ -11,12 +11,12 @@
 	},
 	"Polygon Functions Template": {
 		"prefix": "geo.polygons",
-		"body": "dist = lambda p1, p2: sum((a - b) * (a - b) for a, b in zip(p1, p2))**0.5\n\nperimeter = lambda *p: sum(dist(i, j) for i, j in zip(p, p[1:] + p[:1]))\n\narea = lambda *p: abs(sum(i[0] * j[1] - j[0] * i[1] for i, j in zip(p, p[1:] + p[:1]))) / 2\n\nis_in_circle = lambda p, c, r: sum(i * i - j * j for i, j in zip(p, c)) < r * r\n\nincircle_radius = lambda a, b, c: area(a, b, c) / (perimeter(a, b, c) / 2)\n\ncircumcircle_radius = lambda a, b, c: (dist(a, b) * dist(b, c) * dist(c, a)) / (4 * area(a, b, c))\n",
+		"body": "dist = lambda p1, p2: sum((a - b) * (a - b) for a, b in zip(p1, p2))**0.5\n\nperimeter = lambda *p: sum(dist(i, j) for i, j in zip(p, p[1:] + p[:1]))\n\narea = lambda *p: abs(sum(i[0] * j[1] - j[0] * i[1] for i, j in zip(p, p[1:] + p[:1]))) / 2\n\nis_in_circle = lambda p, c, r: sum(i * i - j * j for i, j in zip(p, c)) < r * r\n\nincircle_radius = lambda a, b, c: area(a, b, c) / (perimeter(a, b, c) / 2)\n\ncircumcircle_radius = lambda a, b, c: (dist(a, b) * dist(b, c) * dist(c, a)) / (4 * area(a, b, c))\n\n\n",
 		"description": "Polygons Fucntion Template"
 	},
 	"Vectors Function Template": {
 		"prefix": "geo.vectors",
-		"body": "import math\n\n# oa = to_vec(o, a), ob = to_vec(o, b)\n\nto_vec = lambda p1, p2: (j - i for i, j in zip(p1, p2))\n\nscale = lambda v, s: (i * s for i in v)\n\ntranslate = lambda p, v: (pi + vi for pi, vi in zip(p, v))\n\ndot = lambda v1, v2: sum(i * j for i, j in zip(v1, v2))\n\nnorm_sq = lambda v: sum(i * i for i in v)\n\nangle = lambda oa, ob: math.acos(dot(oa, ob) / (norm_sq(oa) * norm_sq(ob))**0.5)\n\ncross2d = lambda v1, v2: v1[0] * v2[1] - v1[1] * v2[0]\n\ncross3d = lambda v1, v2: (v1[1] * v2[2] - v1[2] * v2[1], v1[2] * v2[0] - v1[0] * v2[2], v1[0] * v2[1] - v1[1] * v2[0])\n\n\ndef closest_point(p, a, b, segment=False):\n    ap, ab = to_vec(a, p), to_vec(a, b)\n\n    u = dot(ap, ab) / norm_sq(ab)\n\n    if segment:\n        if u < 0:\n            return a\n        if u > 1:\n            return b\n\n    return translate(a, scale(ab, u))\n",
+		"body": "import math\n\n# oa = to_vec(o, a), ob = to_vec(o, b)\n\nto_vec = lambda p1, p2: (j - i for i, j in zip(p1, p2))\n\nscale = lambda v, s: (i * s for i in v)\n\ntranslate = lambda p, v: (pi + vi for pi, vi in zip(p, v))\n\ndot = lambda v1, v2: sum(i * j for i, j in zip(v1, v2))\n\nnorm_sq = lambda v: sum(i * i for i in v)\n\nangle = lambda oa, ob: math.acos(dot(oa, ob) / (norm_sq(oa) * norm_sq(ob))**0.5)\n\ncross2d = lambda v1, v2: v1[0] * v2[1] - v1[1] * v2[0]\n\ncross3d = lambda v1, v2: (v1[1] * v2[2] - v1[2] * v2[1], v1[2] * v2[0] - v1[0] * v2[2], v1[0] * v2[1] - v1[1] * v2[0])\n\n\ndef closest_point(p, a, b, segment=False):\n    ap, ab = to_vec(a, p), to_vec(a, b)\n\n    u = dot(ap, ab) / norm_sq(ab)\n\n    if segment:\n        if u < 0:\n            return a\n        if u > 1:\n            return b\n\n    return translate(a, scale(ab, u))\n\n\n",
 		"description": "Vectors Function Template"
 	}
 }
