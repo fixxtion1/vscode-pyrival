@@ -93,6 +93,17 @@
 | lalg.crt     | Creates Multivariable Chinese Remainder Theorem Template                       |
 
 
+### Numerical Commands
+
+| **Command**     | **Help Text **                                 |
+| --------------- | ---------------------------------------------- |
+| num.linear      | Creates Linear Recurrence Template             |
+| num.hill        | Creates Hill Climbing Algorithm Template       |
+| num.integrate   | Creates Approximate Integration Template       |
+| num.interpolate | Creates Polynomial Interpolation Template      |
+| num.iroot       | Creates Integer Roots Template                 |
+| num.search      | Creates Binary Search Template                 |
+
 ## Known Issues
 
 No known issues so far.
