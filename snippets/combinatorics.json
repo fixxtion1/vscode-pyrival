@@ -1,6 +1,6 @@
 {
     "General Purpose Numbers (Combinatorics) Template": {
-        "prefix": "comb.generalc",
+        "prefix": "comb.general",
         "body": [
           "import math",
           "import operator as op",
@@ -70,7 +70,7 @@
       },
 
       "Lucas's Theorem Template": {
-        "prefix": "comb.lucasth",
+        "prefix": "comb.lucas",
         "body": [
           "def make_nCr_mod(max_n=2 * 10**5, mod=10**9 + 7):",
           "    max_n = min(max_n, mod - 1)",
@@ -103,7 +103,7 @@
       },
 
       "Partition Function Template": {
-        "prefix": "comb.partfn",
+        "prefix": "comb.part",
         "body": [
           "def memoize(f):",
           "    \"\"\"memoization decorator for a function taking one or more arguments\"\"\"",
