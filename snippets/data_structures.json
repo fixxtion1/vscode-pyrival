@@ -1,6 +1,6 @@
 {
   "Bit Array Template": {
-      "prefix": "!barr",
+      "prefix": "ds.barr",
       "body": [
         "class BitArray:",
         "    \"\"\"implements bitarray using bytearray\"\"\"",
@@ -22,7 +22,7 @@
     },
 
     "Binary Indexed (Fenwick) Tree Template": {
-      "prefix": "!bitree",
+      "prefix": "ds.ftree",
       "body": [
         "class FenwickTree:",
         "    def __init__(self, x):",
@@ -63,7 +63,7 @@
     },
 
     "Fraction Template": {
-      "prefix": "!frac",
+      "prefix": "ds.frac",
       "body": [
         "def gcd(x, y):",
         "    \"\"\"greatest common divisor of x and y\"\"\"",
@@ -131,7 +131,7 @@
     },
 
     "Continued Fraction Template": {
-      "prefix": "!cfrac",
+      "prefix": "ds.cfrac",
       "body": [
         "def CFraction(frac):",
         "    num, den = frac",
@@ -155,7 +155,7 @@
     },
 
     "Disjoint-Set (Union Find) Template": {
-      "prefix": "!dset",
+      "prefix": "ds.dset",
       "body": [
         "class DisjointSetUnion:",
         "    def __init__(self, n):",
@@ -209,7 +209,7 @@
     },
 
     "Generic Nodes Template": {
-      "prefix": "!node",
+      "prefix": "ds.node",
       "body": [
         "class Node:",
         "    def __init__(self, value):",
@@ -228,7 +228,7 @@
     },
 
     "Linked List Template": {
-      "prefix": "!llist",
+      "prefix": "ds.llist",
       "body": [
         "class Node:",
         "    def __init__(self, value):",
@@ -345,7 +345,7 @@
     },
 
     "Range Query Data Structure Template": {
-      "prefix": "!rquery",
+      "prefix": "ds.rquery",
       "body": [
         "class RangeQuery:",
         "    def __init__(self, data, func=min):",
@@ -371,7 +371,7 @@
     },
 
     "(Lazy) Segment Tree Template": {
-      "prefix": "!lstree",
+      "prefix": "ds.lstree",
       "body": [
         "class LazySegmentTree:",
         "    def __init__(self, data, default=0, func=max):",
@@ -463,7 +463,7 @@
     },
 
     "Persistent Segment Tree Template": {
-      "prefix": "!pstree",
+      "prefix": "ds.pstree",
       "body": [
         "BIG = 10**9",
         "",
@@ -534,7 +534,7 @@
     },
 
     "Sorted List Template": {
-      "prefix": "!slist",
+      "prefix": "ds.slist",
       "body": [
         "class SortedList:",
         "    def __init__(self, iterable=[], _load=200):",
@@ -776,7 +776,7 @@
     },
 
     "Treap Template": {
-      "prefix": "!treap",
+      "prefix": "ds.treap",
       "body": [
         "",
         "class TreapSet(TreapMultiSet):",
@@ -1060,7 +1060,7 @@
     },
 
     "Trie Template": {
-      "prefix": "!trie",
+      "prefix": "ds.trie",
       "body": [
         "class Trie:",
         "    def __init__(self, *words):",
@@ -1097,7 +1097,7 @@
     },
 
     "2-satisfiability Template": {
-      "prefix": "!twosat",
+      "prefix": "ds.twosat",
       "body": [
         "def scc(graph):",
         "    \"\"\"",
