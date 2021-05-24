@@ -77,10 +77,20 @@
 
 | **Command**    | **Help Text **                       |
 | -------------- | ------------------------------------ |
-| geo.convex  | Creates Convex Hull Template            |
-| geo.lines  | Creates Lines Function Template          |
-| geo.polygons  | Creates Polygon Functions Template    |
-| geo.vectors  | Creates Vectors Function Template      |
+| geo.convex     | Creates Convex Hull Template         |
+| geo.lines      | Creates Lines Function Template      |
+| geo.polygons   | Creates Polygon Functions Template   |
+| geo.vectors    | Creates Vectors Function Template    |
+
+
+
+### Linear Algebra Commands
+
+| **Command**  | **Help Text **                                                                 |
+| ------------ | ------------------------------------------------------------------------------ |
+| lalg.matrix  | Creates Matrix Arithmetic, Exponentiation, Determinant, and Inverse Template   |
+| lalg.maxxor  | Creates Gaussian Elimination Template                                          |
+| lalg.crt     | Creates Multivariable Chinese Remainder Theorem Template                       |
 
 
 ## Known Issues
