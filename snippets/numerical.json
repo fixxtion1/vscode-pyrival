@@ -1,0 +1,32 @@
+{
+	"Linear Recurrence Template": {
+		"prefix": "num.linear",
+		"body": "MOD = 10**9 + 7\n\n\ndef berlekamp_massey(s):\n    n = len(s)\n    L, m = 0, 0\n    C, B, T = [0] * n, [0] * n, []\n    C[0], B[0] = 1, 1\n\n    b = 1\n    for i in range(n):\n        m += 1\n        d = s[i] % MOD\n        for j in range(1, L + 1):\n            d = (d + C[j] * s[i - j]) % MOD\n\n        if not d:\n            continue\n\n        T = C[:]\n        coef = (d * pow(b, MOD - 2, MOD)) % MOD\n        for j in range(m, n):\n            C[j] = (C[j] - coef * B[j - m]) % MOD\n        if 2 * L > i:\n            continue\n        L = i + 1 - L\n        B, b, m = T[:], d, 0\n\n    return [-C[i] % MOD for i in range(1, L + 1)]\n\n\ndef linear_rec(S, tr, k):\n    n = len(S)\n\n    def combine(a, b):\n        res = [0] * (2 * n + 1)\n        for i in range(n + 1):\n            for j in range(n + 1):\n                res[i + j] = (res[i + j] + a[i] * b[j]) % MOD\n\n        for i in range(2 * n, n, -1):\n            for j in range(n):\n                res[i - 1 - j] = (res[i - 1 - j] + res[i] * tr[j]) % MOD\n        return res[:n + 1]\n\n    pol, e = [0] * (n + 1), [0] * (n + 1)\n    pol[0], e[1] = 1, 1\n\n    k += 1\n    while k:\n        if k & 1:\n            pol = combine(pol, e)\n        e = combine(e, e)\n        k >>= 1\n\n    res = 0\n    for i in range(n):\n        res = (res + pol[i + 1] * S[i]) % MOD\n    return res\n\n\n",
+		"description": "Linear Recurrence Template"
+	},
+	"Hill Climbing Algorithm Template": {
+		"prefix": "num.hill",
+		"body": "def hill_climbing(func, x_0, y_0, cmp=min):\n    cur = (func(x_0, y_0), (x_0, y_0))\n    jmp = 1e9\n    while jmp > 1e-20:\n        for _ in range(100):\n            for dx in range(-1, 2):\n                for dy in range(-1, 2):\n                    x = cur[1][0] + dx * jmp\n                    y = cur[1][1] + dy * jmp\n                    cur = cmp(cur, (func(x, y), (x, y)))\n        jmp /= 2\n    return cur\n\n\n",
+		"description": "Hill Climbing Algorithm Template"
+	},
+	"Approximate Integration Template": {
+		"prefix": "num.integrate",
+		"body": "def quad(func, a, b, n=1000):\n    h = (b - a) / 2 / n\n    v = func(a) + func(b) + sum(func(a + i * h) * (4 if i & 1 else 2) for i in range(1, 2 * n))\n    return v * h / 3\n\n\ndef simpson(func, a, b):\n    c = (a + b) / 2\n    return (func(a) + 4 * func(c) + func(b)) * (b - a) / 6\n\n\ndef rec(func, a, b, eps, S):\n    c = (a + b) / 2\n    S1, S2 = simpson(func, a, b), simpson(func, c, b)\n    if (abs(S1 + S2 - S) <= 15 * eps) or (b - a < 1e-6):\n        return S1 + S2 + (S1 + S2 - S) / 15\n    return rec(func, a, c, eps / 2, S1) + rec(func, c, b, eps / 2, S2)\n\n\ndef fast_quad(func, a, b, eps=1e-6):\n    return rec(func, a, b, eps, simpson(func, a, b))\n\n\n",
+		"description": "Approximate Integration Template"
+	},
+	"Polynomial Interpolation Template": {
+		"prefix": "num.interpolate",
+		"body": "def interpolate(points):\n    n = len(points)\n    x, y = map(list, zip(*points))\n    for k in range(n - 1):\n        for i in range(k + 1, n):\n            y[i] = (y[i] - y[k]) / (x[i] - x[k])\n\n    res, tmp = [0] * n, [0] * n\n    tmp[0] = 1\n    last = 0\n    for k in range(n):\n        for i in range(n):\n            res[i] += y[k] * tmp[i]\n            last, tmp[i] = tmp[i], last\n            tmp[i] -= last * x[k]\n    return res\n\n\n",
+		"description": "Polynomial Interpolation Template"
+	},
+	"Integer Roots Template": {
+		"prefix": "num.iroot",
+		"body": "def iroot(n, k=2):\n    if n == 0:\n        return 0\n    if n < 0:\n        return -iroot(-n, k) if k & 1 else None\n    u, s = n, n + 1\n    while u < s:\n        s = u\n        t = (k - 1) * s + n // s**(k - 1)\n        u = t // k\n    return s\n\n\n",
+		"description": "Integer Roots Template"
+	},
+	"Binary Search Template": {
+		"prefix": "num.search",
+		"body": "def binary_search(func, lo, hi, abs_prec=1e-7):\n    \"\"\" Locate the first value x s.t. func(x) = True within [lo, hi] \"\"\"\n    while abs(hi - lo) > abs_prec:\n        mi = lo + (hi - lo) / 2\n        if func(mi):\n            hi = mi\n        else:\n            lo = mi\n\n    return (lo + hi) / 2\n\n\ndef ternary_search(func, lo, hi, abs_prec=1e-7):\n    \"\"\" Find maximum of unimodal function func() within [lo, hi] \"\"\"\n    while abs(hi - lo) > abs_prec:\n        lo_third = lo + (hi - lo) / 3\n        hi_third = hi - (hi - lo) / 3\n\n        if func(lo_third) < func(hi_third):\n            lo = lo_third\n        else:\n            hi = hi_third\n\n    return (lo + hi) / 2\n\n\ndef discrete_binary_search(func, lo, hi):\n    \"\"\" Locate the first value x s.t. func(x) = True within [lo, hi] \"\"\"\n    while lo < hi:\n        mi = lo + (hi - lo) // 2\n        if func(mi):\n            hi = mi\n        else:\n            lo = mi + 1\n\n    return lo\n\n\ndef discrete_ternary_search(func, lo, hi):\n    \"\"\" Find the first maximum of unimodal function func() within [lo, hi] \"\"\"\n    while lo <= hi:\n        lo_third = lo + (hi - lo) // 3\n        hi_third = lo + (hi - lo) // 3 + (1 if 0 < hi - lo < 3 else (hi - lo) // 3)\n\n        if func(lo_third) < func(hi_third):\n            lo = lo_third + 1\n        else:\n            hi = hi_third - 1\n\n    return lo\n\n\ndef fractional_binary_search(func, lo=(0, 1), hi=(1, 0), limit=1000000):\n    if func(lo):\n        return lo\n\n    flag = True\n    A, B = 1, 1\n    while A or B:\n        adv, step = 0, 1\n\n        si = 0\n        while step:\n            adv += step\n            mid = (lo[0] * adv + hi[0], lo[1] * adv + hi[1])\n            if abs(mid[0]) > limit or mid[1] > limit or flag != func(mid):\n                adv -= step\n                si = 2\n            step += step\n            step >>= si\n\n        flag = not flag\n        lo, hi = (hi[0] + lo[0] * adv, hi[1] + lo[1] * adv), lo\n        A, B = B, adv\n\n    return hi if flag else lo\n\n\ndef golden_section_search(a, b, func, abs_prec=1e-7):\n    r = ((5**0.5) - 1) / 2\n\n    x1 = b - r * (b - a)\n    f1 = func(b - r * (b - a))\n\n    x2 = a + r * (b - a)\n    f2 = func(a + r * (b - a))\n\n    while b - a > abs_prec:\n        if f1 < f2:\n            b, x2, f2 = x2, x1, f1\n            x1 = b - r * (b - a)\n            f1 = func(b - r * (b - a))\n        else:\n            a, x1, f1 = x1, x2, f2\n            x2 = a + r * (b - a)\n            f2 = func(a + r * (b - a))\n\n    return a\n\n\n",
+		"description": "Binary Search Template"
+	}
+}
