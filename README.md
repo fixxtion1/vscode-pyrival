@@ -2,6 +2,32 @@
 
 ## Shortcuts / Commands
 
+### Algebra Commands
+
+| **Command**    | **Help Text **                                                |
+| -------------- | ------------------------------------------------------------- |
+| alg.crt        | Creates Chinese Remainder Theorem (Multivariable) Template    |
+| alg.dlog       | Creates Discrete Logarithm Template                           |
+| alg.lcmngcd    | Creates LCM and GCD Template                                  |
+| alg.factor     | Creates Integer Factorization Template                        |
+| alg.fft        | Creates Fast Fourier Transform Template                       |
+| alg.fst        | Creates Fast Subset Transform Template                        |
+| alg.ntt        | Creates Number Theoretic Transform Template                   |
+| alg.isprime    | Creates Deterministic Miller-Rabin Primality Test Template    |
+| alg.modsqrt    | Creates Tonelli–Shanks Algorithm Template                     |
+| alg.midinv     | Creates Generalized Modular Inverse Template                  |
+| alg.phi        | Creates Euler's Phi Function Template                         |
+| alg.proot      | Creates Primitive Root Template                               |
+| alg.sieve      | Creates Sieve of Eratosthenes Template                        |
+
+### Combinatorics Commands
+
+| **Command**    | **Help Text **                                            |
+| -------------- | --------------------------------------------------------- |
+| comb.general   | Creates General Purpose Numbers (Combinatorics) Template  |
+| comb.lucas     | Creates Lucas's Theorem Template                          |
+| comb.part      | Creates Partition Function Template                       |
+
 ### Data Structures Commands
 
 | **Command** | **Help Text **                                 |
@@ -20,16 +46,17 @@
 | ds.treap    | Creates Treap Template                         |
 | ds.trie     | Creates Trie Template                          |
 | ds.twosat   | Creates 2-satisfiability Template              |
+| ds.heapq    | Creates Heapq Template                         |
+| ds.convex   | Creates Convex Hull Trick Template             |
 
+### Geometery Commands
 
-### Combinatorics Commands
-
-| **Command**    | **Help Text **                                            |
-| -------------- | --------------------------------------------------------- |
-| comb.general  | Creates General Purpose Numbers (Combinatorics) Template  |
-| comb.lucas   | Creates Lucas's Theorem Template                         |
-| comb.part    | Creates Partition Function Template                       |
-
+| **Command**    | **Help Text **                       |
+| -------------- | ------------------------------------ |
+| geo.convex     | Creates Convex Hull Template         |
+| geo.lines      | Creates Lines Function Template      |
+| geo.polygons   | Creates Polygon Functions Template   |
+| geo.vectors    | Creates Vectors Function Template    |
 
 ### Graphs Commands
 
@@ -50,40 +77,6 @@
 | graph.tarjan   | Creates Tarjan's Algorithm Template                         |
 | graph.sorttop  | Creates Topological Sorting Template                        |
 
-
-
-### Algebra Commands
-
-| **Command**    | **Help Text **                                                |
-| -------------- | ------------------------------------------------------------- |
-| alg.crt        | Creates Chinese Remainder Theorem (Multivariable) Template    |
-| alg.dlog       | Creates Discrete Logarithm Template                           |
-| alg.lcmngcd    | Creates LCM and GCD Template                                  |
-| alg.factor     | Creates Integer Factorization Template                        |
-| alg.fft        | Creates Fast Fourier Transform Template                       |
-| alg.fst        | Creates Fast Subset Transform Template                        |
-| alg.ntt        | Creates Number Theoretic Transform Template                   |
-| alg.isprime    | Creates Deterministic Miller-Rabin Primality Test Template    |
-| alg.modsqrt    | Creates Tonelli–Shanks Algorithm Template                     |
-| alg.midinv     | Creates Generalized Modular Inverse Template                  |
-| alg.phi        | Creates Euler's Phi Function Template                         |
-| alg.proot      | Creates Primitive Root Template                               |
-| alg.sieve      | Creates Sieve of Eratosthenes Template                        |
-
-
-
-
-### Geometery Commands
-
-| **Command**    | **Help Text **                       |
-| -------------- | ------------------------------------ |
-| geo.convex     | Creates Convex Hull Template         |
-| geo.lines      | Creates Lines Function Template      |
-| geo.polygons   | Creates Polygon Functions Template   |
-| geo.vectors    | Creates Vectors Function Template    |
-
-
-
 ### Linear Algebra Commands
 
 | **Command**  | **Help Text **                                                                 |
@@ -97,12 +90,41 @@
 
 | **Command**     | **Help Text **                                 |
 | --------------- | ---------------------------------------------- |
-| num.linear      | Creates Linear Recurrence Template             |
 | num.hill        | Creates Hill Climbing Algorithm Template       |
 | num.integrate   | Creates Approximate Integration Template       |
 | num.interpolate | Creates Polynomial Interpolation Template      |
 | num.iroot       | Creates Integer Roots Template                 |
 | num.search      | Creates Binary Search Template                 |
+| num.linear      | Creates Linear Recurrence Template             |
+
+### Strings Commands
+
+| **Command**   | **Help Text **                                            |
+| ------------- | --------------------------------------------------------- |
+| str.hashing   | Creates Knuth–Morris–Pratt Algorithm Template             |
+| str.lcs       | Creates Longest Common/Palindromic Subsequences Template  |
+| str.lpsub     | Creates Longest Palindromic Substring Template            |
+| str.minrot    | Creates Lydon Factorization Template                      |
+| str.zfun      | Creates Z Algorithm Template                              |
+| str.lcsub     | Creates Longest Common Substring Template                 |
+
+### Miscellaneous Commands
+
+| **Command**       | **Help Text **                                   |
+| ----------------- | ------------------------------------------------ |
+| !temp             | creates master template for cp                   |
+| misc.bootstrap    | Creates bootstrap for recursion template         |
+| misc.fastio       | Creates FastIO Template                          |
+| misc.osort        | Creates Order Sort Template                      |
+| misc.random       | Creates random template                          |
+| misc.split        | Creates String Split Template                    |
+| misc.bithack      | Creates Bit Hacks Template                       |
+| misc.mod          | Creates 32-bit Modular Arithmetic Template       |
+| misc.memoize      | Creates Memoize Decorators Template              |
+| misc.ostream      | Creates C++ syle cout Template                   |
+| misc.alphabeta    | Creates Alpha–Beta Pruning Template              |
+| misc.lis          | Creates Longest Increasing Subsequence Template  |
+| misc.ostat        | Creates K-th Order Statistic Template            |
 
 ## Known Issues
 
