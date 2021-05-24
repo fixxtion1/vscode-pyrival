@@ -72,6 +72,17 @@
 
 
 
+
+### Geometery Commands
+
+| **Command**    | **Help Text **                       |
+| -------------- | ------------------------------------ |
+| geo.convex  | Creates Convex Hull Template            |
+| geo.lines  | Creates Lines Function Template          |
+| geo.polygons  | Creates Polygon Functions Template    |
+| geo.vectors  | Creates Vectors Function Template      |
+
+
 ## Known Issues
 
 No known issues so far.

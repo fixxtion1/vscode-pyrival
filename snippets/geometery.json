@@ -1,0 +1,22 @@
+{
+	"Convex Hull Template": {
+		"prefix": "geo.convex",
+		"body": "def remove_middle(a, b, c):\n    cross = (a[0] - b[0]) * (c[1] - b[1]) - (a[1] - b[1]) * (c[0] - b[0])\n    dot = (a[0] - b[0]) * (c[0] - b[0]) + (a[1] - b[1]) * (c[1] - b[1])\n    return cross < 0 or cross == 0 and dot <= 0\n\n\ndef convex_hull(points):\n    spoints = sorted(points)\n    hull = []\n    for p in spoints + spoints[::-1]:\n        while len(hull) >= 2 and remove_middle(hull[-2], hull[-1], p):\n            hull.pop()\n        hull.append(p)\n    hull.pop()\n    return hull\n",
+		"description": "Convex Hull Template"
+	},
+	"Lines Function Template": {
+		"prefix": "geo.lines",
+		"body": "import itertools\nimport math\n\n# 2d line: ax + by + c = 0  is  (a, b, c)\n\n#          ax + by + c = 0     ((a, b, c),\n# 3d line: dx + ez + f = 0  is  (d, e, f),\n#          gy + hz + i = 0      (g, h, i))\n\n\ndef gcd(x, y):\n    \"\"\"greatest common divisor of x and y\"\"\"\n    while y:\n        x, y = y, x % y\n    return x\n\n\ndef get_2dline(p1, p2):\n    if p1 == p2:\n        return (0, 0, 0)\n    _p1, _p2 = min(p1, p2), max(p1, p2)\n    a, b, c = _p2[1] - _p1[1], _p1[0] - _p2[0], _p1[1] * _p2[0] - _p1[0] * _p2[1]\n    g = gcd(gcd(a, b), c)\n    return (a // g, b // g, c // g)\n\n\ndist = lambda p1, p2: sum((a - b) * (a - b) for a, b in zip(p1, p2))**0.5\n\nget_line = lambda p1, p2: map(get_2dline, itertools.combinations(p1, 2), itertools.combinations(p2, 2))\n\nis_parallel = lambda l1, l2: l1[0] * l2[1] == l2[0] * l1[1]\n\nis_same = lambda l1, l2: is_parallel(l1, l2) and (l1[1] * l2[2] == l2[1] * l1[2])\n\ncollinear = lambda p1, p2, p3: is_same(get_2dline(p1, p2), get_2dline(p2, p3))\n\nintersect = (lambda l1, l2: None if is_parallel(l1, l2) else (\n    (l2[1] * l1[2] - l1[1] * l2[2]) / (l2[0] * l1[1] - l1[0] * l2[1]),\n    (l1[0] * l2[2] - l1[2] * l2[0]) / (l2[0] * l1[1] - l1[0] * l2[1]),\n))\n\nrotate = lambda p, theta, origin=(0, 0): (\n    origin[0] + (p[0] - origin[0]) * math.cos(theta) - (p[1] - origin[1]) * math.sin(theta),\n    origin[1] + (p[0] - origin[0]) * math.sin(theta) + (p[1] - origin[1]) * math.cos(theta),\n)\n",
+		"description": "Lines Function Template"
+	},
+	"Polygon Functions Template": {
+		"prefix": "geo.polygons",
+		"body": "dist = lambda p1, p2: sum((a - b) * (a - b) for a, b in zip(p1, p2))**0.5\n\nperimeter = lambda *p: sum(dist(i, j) for i, j in zip(p, p[1:] + p[:1]))\n\narea = lambda *p: abs(sum(i[0] * j[1] - j[0] * i[1] for i, j in zip(p, p[1:] + p[:1]))) / 2\n\nis_in_circle = lambda p, c, r: sum(i * i - j * j for i, j in zip(p, c)) < r * r\n\nincircle_radius = lambda a, b, c: area(a, b, c) / (perimeter(a, b, c) / 2)\n\ncircumcircle_radius = lambda a, b, c: (dist(a, b) * dist(b, c) * dist(c, a)) / (4 * area(a, b, c))\n",
+		"description": "Polygons Fucntion Template"
+	},
+	"Vectors Function Template": {
+		"prefix": "geo.vectors",
+		"body": "import math\n\n# oa = to_vec(o, a), ob = to_vec(o, b)\n\nto_vec = lambda p1, p2: (j - i for i, j in zip(p1, p2))\n\nscale = lambda v, s: (i * s for i in v)\n\ntranslate = lambda p, v: (pi + vi for pi, vi in zip(p, v))\n\ndot = lambda v1, v2: sum(i * j for i, j in zip(v1, v2))\n\nnorm_sq = lambda v: sum(i * i for i in v)\n\nangle = lambda oa, ob: math.acos(dot(oa, ob) / (norm_sq(oa) * norm_sq(ob))**0.5)\n\ncross2d = lambda v1, v2: v1[0] * v2[1] - v1[1] * v2[0]\n\ncross3d = lambda v1, v2: (v1[1] * v2[2] - v1[2] * v2[1], v1[2] * v2[0] - v1[0] * v2[2], v1[0] * v2[1] - v1[1] * v2[0])\n\n\ndef closest_point(p, a, b, segment=False):\n    ap, ab = to_vec(a, p), to_vec(a, b)\n\n    u = dot(ap, ab) / norm_sq(ab)\n\n    if segment:\n        if u < 0:\n            return a\n        if u > 1:\n            return b\n\n    return translate(a, scale(ab, u))\n",
+		"description": "Vectors Function Template"
+	}
+}
