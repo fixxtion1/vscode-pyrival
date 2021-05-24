@@ -1,0 +1,64 @@
+{
+	"bootstrap for recursion template": {
+		"prefix": "misc.bootstrap",
+		"body": "from types import GeneratorType\n\n\ndef bootstrap(f, stack=[]):\n    def wrappedfunc(*args, **kwargs):\n        if stack:\n            return f(*args, **kwargs)\n        else:\n            to = f(*args, **kwargs)\n            while True:\n                if type(to) is GeneratorType:\n                    stack.append(to)\n                    to = next(to)\n                else:\n                    stack.pop()\n                    if not stack:\n                        break\n                    to = stack[-1].send(to)\n            return to\n\n    return wrappedfunc\n\n\n",
+		"description": "bootstrap for recursion template"
+	},
+	"FastIO Template": {
+		"prefix": "misc.fastio",
+		"body": "import os\nimport sys\nfrom io import BytesIO, IOBase\n\n_str = str\nstr = lambda x=b\"\": x if type(x) is bytes else _str(x).encode()\n\nBUFSIZE = 8192\n\n\nclass FastIO(IOBase):\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n        while self.newlines == 0:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    def __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n        self.writable = self.buffer.writable\n        self.write = lambda s: self.buffer.write(s.encode(\"ascii\"))\n        self.read = lambda: self.buffer.read().decode(\"ascii\")\n        self.readline = lambda: self.buffer.readline().decode(\"ascii\")\n\n\nsys.stdin, sys.stdout = IOWrapper(sys.stdin), IOWrapper(sys.stdout)\ninput = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")\n\n\n\n\n",
+		"description": "FastIO Template"
+	},
+
+    "Order Sort Template": {
+		"prefix": "misc.osort",
+		"body": "def bucketsort(order, seq):\n    buckets = [0] * (max(seq) + 1)\n    for x in seq:\n        buckets[x] += 1\n    for i in range(len(buckets) - 1):\n        buckets[i + 1] += buckets[i]\n\n    new_order = [-1] * len(seq)\n    for i in reversed(order):\n        x = seq[i]\n        idx = buckets[x] = buckets[x] - 1\n        new_order[idx] = i\n\n    return new_order\n\n\ndef ordersort(order, seq, reverse=False):\n    bit = max(seq).bit_length() >> 1\n    mask = (1 << bit) - 1\n    order = bucketsort(order, [x & mask for x in seq])\n    order = bucketsort(order, [x >> bit for x in seq])\n    if reverse:\n        order.reverse()\n    return order\n\n\ndef long_ordersort(order, seq):\n    order = ordersort(order, [int(i & 0x7fffffff) for i in seq])\n    return ordersort(order, [int(i >> 31) for i in seq])\n\n\ndef multikey_ordersort(order, *seqs, sort=ordersort):\n    for i in reversed(range(len(seqs))):\n        order = sort(order, seqs[i])\n    return order\n\n\n",
+		"description": "Order Sort Template"
+	},
+
+    "random template": {
+		"prefix": "misc.random",
+		"body": "import sys\n\nsys.modules[\"hashlib\"] = sys.sha512 = sys\nimport random\n\n\n",
+		"description": "random template"
+	},
+	"String Split Template": {
+		"prefix": "misc.split",
+		"body": "def split(b):\n    words, i = [], 0\n    while i < len(b):\n        j = i\n        while i < len(b) and not b[i].isspace():\n            i += 1\n        words.append(b[j:i])\n        while i < len(b) and b[i].isspace():\n            i += 1\n    return words\n\n\n\n",
+		"description": "String Split Template"
+	},
+	"Bit Hacks Template": {
+		"prefix": "misc.bithack",
+		"body": "least_bit = lambda x: x & -x\n\n\ndef subset_masks(m):\n    x = m\n    while x:\n        x -= 1\n        x &= m\n        yield x\n\n\ndef next_mask(x):\n    c = least_bit(x)\n    r = x + c\n    return (((r ^ x) >> 2) // c) | r\n\n\ndef sum_of_subsets(K, D):\n    for b in range(K):\n        for i in range(1 << K):\n            if i & 1 << b:\n                D[i] += D[i ^ (1 << b)]\n\n\n\n",
+		"description": "Bit Hacks Template"
+	},
+	"32-bit Modular Arithmetic Template": {
+		"prefix": "misc.mod",
+		"body": "import __pypy__\n\nint_add = __pypy__.intop.int_add\nint_sub = __pypy__.intop.int_sub\nint_mul = __pypy__.intop.int_mul\n\n\ndef make_mod_mul(mod=10**9 + 7):\n    fmod_inv = 1.0 / mod\n\n    def mod_mul(a, b, c=0):\n        res = int_sub(int_add(int_mul(a, b), c), int_mul(mod, int(fmod_inv * a * b + fmod_inv * c)))\n        if res >= mod:\n            return res - mod\n        elif res < 0:\n            return res + mod\n        else:\n            return res\n\n    return mod_mul\n\n\nmod_mul = make_mod_mul()\n\n\ndef mod_pow(x, y):\n    if y == 0:\n        return 1\n    res = 1\n    while y > 1:\n        if y & 1 == 1:\n            res = mod_mul(res, x)\n        x = mod_mul(x, x)\n        y >>= 1\n    return mod_mul(res, x)\n\n\n",
+		"description": "32-bit Modular Arithmetic Template"
+	},
+	"Memoize Decorators Template": {
+		"prefix": "misc.memoize",
+		"body": "def memodict(f):\n    \"\"\" Memoization decorator for a function taking a single argument. \"\"\"\n    class memodict(dict):\n        def __missing__(self, key):\n            ret = self[key] = f(key)\n            return ret\n\n    return memodict().__getitem__\n\n\ndef memoize(f):\n    \"\"\" Memoization decorator for a function taking one or more arguments. \"\"\"\n    class memodict(dict):\n        def __getitem__(self, *key):\n            return dict.__getitem__(self, key)\n\n        def __missing__(self, key):\n            ret = self[key] = f(*key)\n            return ret\n\n    return memodict().__getitem__\n\n\n",
+		"description": "Memoize Decorators Template"
+	},
+	"C++ syle cout Template": {
+		"prefix": "misc.ostream",
+		"body": "import sys\n\n\nclass ostream:\n    def __lshift__(self, a):\n        if a == endl:\n            sys.stdout.write(\"\\n\")\n            sys.stdout.flush()\n        else:\n            sys.stdout.write(str(a))\n        return self\n\n\ncout, endl = ostream(), object()\n\n\n",
+		"description": "C++ syle cout Template"
+	},
+	"Alpha–Beta Pruning Template": {
+		"prefix": "misc.alphabeta",
+		"body": "class AlphaBetaNode:\n    def __init__(self, value=None, children=None):\n        self.value = value\n        self.children = children\n\n\ndef alphabeta(node, depth, alpha=float(\"-inf\"), beta=float(\"+inf\"), maximizingPlayer=True):\n    if (depth == 0) or (node.children is None):\n        return node.value\n    if maximizingPlayer:\n        value = float(\"-inf\")\n        for child in node.children:\n            value = max(value, alphabeta(child, depth - 1, alpha, beta, False))\n            alpha = max(alpha, value)\n            if alpha >= beta:\n                break\n        return value\n    else:\n        value = float(\"+inf\")\n        for child in node.children:\n            value = min(value, alphabeta(child, depth - 1, alpha, beta, True))\n            beta = min(beta, value)\n            if alpha >= beta:\n                break\n        return value\n\n\n\n",
+		"description": "Alpha–Beta Pruning"
+	},
+	"Longest Increasing Subsequence Template": {
+		"prefix": "misc.lis",
+		"body": "def lis(nums, cmp=lambda x, y: x < y):\n    P = [0] * len(nums)\n    M = [0] * (len(nums) + 1)\n    L = 0\n\n    for i in range(len(nums)):\n        lo, hi = 1, L\n\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if cmp(nums[M[mid]], nums[i]):\n                lo = mid + 1\n            else:\n                hi = mid - 1\n\n        newL = lo\n        P[i] = M[newL - 1]\n        M[newL] = i\n\n        L = max(L, newL)\n\n    S = [0] * L\n    k = M[L]\n\n    for i in range(L - 1, -1, -1):\n        S[i], k = nums[k], P[k]\n\n    return S\n\n\n\n",
+		"description": "Longest Increasing Subsequence Template"
+	},
+	"K-th Order Statistic Template": {
+		"prefix": "misc.ostat",
+		"body": "def order_statistic(a, k):\n    \"\"\"returns the k-th (0 <= k < len(a)) largest element of a\"\"\"\n    left, right = 0, len(a) - 1\n\n    while True:\n        if right <= left + 1:\n            if (right == left + 1) and (a[right] < a[left]):\n                a[left], a[right] = a[right], a[left]\n\n            return a[k]\n\n        mid = (left + right) // 2\n        a[mid], a[left + 1] = a[left + 1], a[mid]\n\n        if a[left] > a[right]:\n            a[left], a[right] = a[right], a[left]\n\n        if a[left + 1] > a[right]:\n            a[right], a[left + 1] = a[left + 1], a[right]\n\n        if a[left] > a[left + 1]:\n            a[left], a[left + 1] = a[left + 1], a[left]\n\n        i, j = left + 1, right\n        cur = a[left + 1]\n\n        while True:\n            i += 1\n            while a[i] < cur:\n                i += 1\n\n            j -= 1\n            while a[j] > cur:\n                j -= 1\n\n            if i > j:\n                break\n\n            a[i], a[j] = a[j], a[i]\n\n        a[left + 1] = a[j]\n        a[j] = cur\n\n        if j >= k:\n            right = j - 1\n\n        if j <= k:\n            left = i\n\n\n",
+		"description": "K-th Order Statistic Template"
+	}
+}
