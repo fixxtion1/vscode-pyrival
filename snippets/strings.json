@@ -1,0 +1,27 @@
+{
+	"Knuth–Morris–Pratt Algorithm Template": {
+		"prefix": "str.hashing",
+		"body": "import random\n\nHMOD = 2147483647\nHBASE1 = random.randrange(HMOD)\nHBASE2 = random.randrange(HMOD)\n\n\nclass Hashing:\n    def __init__(self, s, mod=HMOD, base1=HBASE1, base2=HBASE2):\n        self.mod, self.base1, self.base2 = mod, base1, base2\n        self._len = _len = len(s)\n        f_hash, f_pow = [0] * (_len + 1), [1] * (_len + 1)\n        s_hash, s_pow = f_hash[:], f_pow[:]\n        for i in range(_len):\n            f_hash[i + 1] = (base1 * f_hash[i] + s[i]) % mod\n            s_hash[i + 1] = (base2 * s_hash[i] + s[i]) % mod\n            f_pow[i + 1] = base1 * f_pow[i] % mod\n            s_pow[i + 1] = base2 * s_pow[i] % mod\n        self.f_hash, self.f_pow = f_hash, f_pow\n        self.s_hash, self.s_pow = s_hash, s_pow\n\n    def hashed(self, start, stop):\n        return (\n            (self.f_hash[stop] - self.f_pow[stop - start] * self.f_hash[start]) % self.mod,\n            (self.s_hash[stop] - self.s_pow[stop - start] * self.s_hash[start]) % self.mod,\n        )\n\n    def get_hashes(self, length):\n        return (\n            [(self.f_hash[i + length] - self.f_pow[length] * self.f_hash[i]) % self.mod for i in range(self._len - length + 1)],\n            [(self.s_hash[i + length] - self.s_pow[length] * self.s_hash[i]) % self.mod for i in range(self._len - length + 1)],\n        )\n\n\n",
+		"description": "Knuth–Morris–Pratt Algorithm Template"
+	},
+	"Longest Common/Palindromic Subsequences Template": {
+		"prefix": "str.lcs",
+		"body": "def lcs(a, b):\n    lengths = [[0] * (len(b) + 1) for i in range(len(a) + 1)]\n\n    for i, x in enumerate(a):\n        for j, y in enumerate(b):\n            if x == y:\n                lengths[i + 1][j + 1] = lengths[i][j] + 1\n            else:\n                lengths[i + 1][j + 1] = max(lengths[i + 1][j], lengths[i][j + 1])\n\n    result = []\n    x, y = len(a), len(b)\n    while x != 0 and y != 0:\n        if lengths[x][y] == lengths[x - 1][y]:\n            x -= 1\n        elif lengths[x][y] == lengths[x][y - 1]:\n            y -= 1\n        else:\n            result.append(a[x - 1])\n            x -= 1\n            y -= 1\n\n    return result[::-1]\n\n\ndef lps(s):\n    return lcs(s, s[::-1])\n\n\n",
+		"description": "Longest Common/Palindromic Subsequences Template"
+	},
+	"Longest Palindromic Substring Template": {
+		"prefix": "str.lpsub",
+		"body": "def LPSubstr(s):\n    n = len(s)\n    p = [[0] * (n + 1), [0] * n]\n\n    for z, p_z in enumerate(p):\n        left, right = 0, 0\n        for i in range(n):\n            t = right - i + 1 - z\n            if i < right:\n                p_z[i] = min(t, p_z[left + t])\n            L, R = i - p_z[i], i + p_z[i] - 1 + z\n            while (L >= 1) and (R + 1 < n) and (s[L - 1] == s[R + 1]):\n                p_z[i] += 1\n                L -= 1\n                R += 1\n            if R > right:\n                left, right = L, R\n\n    i1, x1 = max(enumerate(p[0]), key=lambda x: x[1])\n    i2, x2 = max(enumerate(p[1]), key=lambda x: x[1])\n\n    return s[i1 - x1:i1 + x1], s[i2 - x2:i2 + x2 + 1]\n\n\n",
+		"description": "Longest Palindromic Substring Template"
+	},
+	"Lydon Factorization Template": {
+		"prefix": "str.minrot",
+		"body": "def least_rotation(s):\n    a, n = 0, len(s)\n    s = s + s\n\n    for b in range(n):\n        for i in range(n):\n            if (a + i == b) or (s[a + i] < s[b + i]):\n                b += max(0, i - 1)\n                break\n            if s[a + i] > s[b + i]:\n                a = b\n                break\n\n    return s[a:a + n]\n\n\n",
+		"description": "Lydon Factorization Template"
+	},
+	"Z Algorithm Template": {
+		"prefix": "str.zfun",
+		"body": "\ndef z_function(S):\n    \"\"\"\n    Z Algorithm in O(n)\n    :param S: text string to process\n    :return: the Z array, where Z[i] = length of the longest common prefix of S[i:] and S\n    \"\"\"\n\n    n = len(S)\n    Z = [0] * n\n    l = r = 0\n\n    for i in range(1, n):\n        z = Z[i - l]\n        if i + z >= r:\n            z = max(r - i, 0)\n            while i + z < n and S[z] == S[i + z]:\n                z += 1\n\n            l, r = i, i + z\n\n        Z[i] = z\n\n    Z[0] = n\n    return Z\n\n\n",
+		"description": "Z Algorithm Template"
+	}
+}
