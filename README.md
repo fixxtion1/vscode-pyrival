@@ -1,4 +1,10 @@
-# Competitive Programming with Python Templates
+# Pyrival Vs Code Extension
+
+### A Python 'library' for Competitive Programming
+
+Ever been trying to start with a competitive programming template?
+
+This extension will solve the issue for you and your up and running with a full template.
 
 ## Shortcuts / Commands
 
@@ -129,7 +135,6 @@
 ## Known Issues
 
 No known issues so far.
-
-## Credits
+ ## Credits
 
 - [@PyRival](https://github.com/cheran-senthil/PyRival)

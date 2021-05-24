@@ -1,0 +1,58 @@
+{
+    "name": "py-rival",
+    "displayName": "Pyrival",
+    "description": "A Python Library for Competitive Programming",
+    "version": "1.0.0",
+    "publisher": "fixxtion",
+    "homepage": "https://github.com/fixxtion/vscode-pyrival/blob/main/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fixxtion/vscode-pyrival"
+      },
+    "bugs": {
+        "url": "https://github.com/fixxtion/vscode-pyrival/issues",
+        "email": "simen.dehlin@gmail.com"
+      },
+    "engines": {
+        "vscode": "^1.56.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "icon": "icon.png",
+    "contributes": {
+        "snippets": [
+            {
+                "language": "python",
+                "path": "./snippets/algebra.json"
+            },{
+                "language": "python",
+                "path": "./snippets/combinatorics.json"
+            },{
+                "language": "python",
+                "path": "./snippets/data_structures.json"
+            },{
+                "language": "python",
+                "path": "./snippets/geometery.json"
+            },{
+                "language": "python",
+                "path": "./snippets/graphs.json"
+            },{
+                "language": "python",
+                "path": "./snippets/linear_algebra.json"
+            },{
+                "language": "python",
+                "path": "./snippets/misc.json"
+            },{
+                "language": "python",
+                "path": "./snippets/strings.json"
+            },{
+                "language": "python",
+                "path": "./snippets/template.json"
+            },{
+                "language": "python",
+                "path": "./snippets/numerical.json"
+            }
+        ]
+    }
+}
